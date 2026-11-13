@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://fl4gg04ldrwb"]
+
+[ext_resource type="Script" path="res://games/draw_bridge/flag.gd" id="1_flag"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sensor"]
+size = Vector2(40, 80)
+
+[node name="Flag" type="Area2D"]
+script = ExtResource("1_flag")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -35)
+shape = SubResource("RectangleShape2D_sensor")

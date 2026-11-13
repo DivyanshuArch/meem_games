@@ -1,0 +1,68 @@
+[gd_scene load_steps=7 format=3 uid="uid://c4rdr4wbr1dg3"]
+
+[ext_resource type="Script" path="res://games/draw_bridge/car.gd" id="1_car"]
+[ext_resource type="Script" path="res://games/draw_bridge/car_visuals.gd" id="2_vis"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_chassis"]
+friction = 0.5
+bounce = 0.1
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_chassis"]
+size = Vector2(60, 20)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wheel"]
+friction = 1.0
+bounce = 0.05
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wheel"]
+radius = 12.0
+
+[node name="Car" type="Node2D"]
+script = ExtResource("1_car")
+
+[node name="Chassis" type="RigidBody2D" parent="."]
+position = Vector2(0, -20)
+mass = 2.5
+physics_material_override = SubResource("PhysicsMaterial_chassis")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Chassis"]
+shape = SubResource("RectangleShape2D_chassis")
+
+[node name="Visuals" type="Node2D" parent="Chassis"]
+script = ExtResource("2_vis")
+
+[node name="WheelA" type="RigidBody2D" parent="."]
+position = Vector2(-22, 0)
+mass = 0.6
+physics_material_override = SubResource("PhysicsMaterial_wheel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WheelA"]
+shape = SubResource("CircleShape2D_wheel")
+
+[node name="Visuals" type="Node2D" parent="WheelA"]
+script = ExtResource("2_vis")
+
+[node name="WheelB" type="RigidBody2D" parent="."]
+position = Vector2(22, 0)
+mass = 0.6
+physics_material_override = SubResource("PhysicsMaterial_wheel")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WheelB"]
+shape = SubResource("CircleShape2D_wheel")
+
+[node name="Visuals" type="Node2D" parent="WheelB"]
+script = ExtResource("2_vis")
+
+[node name="JointA" type="PinJoint2D" parent="."]
+position = Vector2(-22, 0)
+node_a = NodePath("../Chassis")
+node_b = NodePath("../WheelA")
+bias = 0.2
+softness = 0.1
+
+[node name="JointB" type="PinJoint2D" parent="."]
+position = Vector2(22, 0)
+node_a = NodePath("../Chassis")
+node_b = NodePath("../WheelB")
+bias = 0.2
+softness = 0.1
