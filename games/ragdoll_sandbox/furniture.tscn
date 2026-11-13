@@ -3,55 +3,55 @@
 [ext_resource type="Script" path="res://games/ragdoll_sandbox/furniture.gd" id="1_furn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bookshelf"]
-size = Vector2(120, 350)
+size = Vector2(90, 260)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sofa_base"]
-size = Vector2(250, 100)
+size = Vector2(200, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sofa_back"]
-size = Vector2(50, 100)
+size = Vector2(40, 90)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bed_base"]
-size = Vector2(300, 100)
+size = Vector2(240, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bed_headboard"]
-size = Vector2(20, 100)
+size = Vector2(20, 90)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_boundary_h"]
-size = Vector2(1300, 50)
+size = Vector2(800, 50)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_boundary_v"]
-size = Vector2(50, 900)
+size = Vector2(50, 1400)
 
 [node name="Furniture" type="Node2D"]
 script = ExtResource("1_furn")
 
 [node name="BookshelfBody" type="StaticBody2D" parent="."]
-position = Vector2(400, 600)
+position = Vector2(260, 950)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BookshelfBody"]
 shape = SubResource("RectangleShape2D_bookshelf")
 
 [node name="SofaBaseBody" type="StaticBody2D" parent="."]
-position = Vector2(200, 725)
+position = Vector2(140, 1180)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SofaBaseBody"]
 shape = SubResource("RectangleShape2D_sofa_base")
 
 [node name="SofaBackBody" type="StaticBody2D" parent="."]
-position = Vector2(100, 625)
+position = Vector2(50, 1100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="SofaBackBody"]
 shape = SubResource("RectangleShape2D_sofa_back")
 
 [node name="BedBaseBody" type="StaticBody2D" parent="."]
-position = Vector2(950, 725)
+position = Vector2(570, 1180)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BedBaseBody"]
 shape = SubResource("RectangleShape2D_bed_base")
 
 [node name="BedHeadboardBody" type="StaticBody2D" parent="."]
-position = Vector2(1090, 625)
+position = Vector2(680, 1100)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BedHeadboardBody"]
 shape = SubResource("RectangleShape2D_bed_headboard")
@@ -59,25 +59,25 @@ shape = SubResource("RectangleShape2D_bed_headboard")
 [node name="Boundaries" type="Node2D" parent="."]
 
 [node name="Floor" type="StaticBody2D" parent="Boundaries"]
-position = Vector2(600, 825)
+position = Vector2(360, 1260)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Floor"]
 shape = SubResource("RectangleShape2D_boundary_h")
 
 [node name="Ceiling" type="StaticBody2D" parent="Boundaries"]
-position = Vector2(600, -25)
+position = Vector2(360, -25)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/Ceiling"]
 shape = SubResource("RectangleShape2D_boundary_h")
 
 [node name="LeftWall" type="StaticBody2D" parent="Boundaries"]
-position = Vector2(-25, 400)
+position = Vector2(-25, 640)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LeftWall"]
 shape = SubResource("RectangleShape2D_boundary_v")
 
 [node name="RightWall" type="StaticBody2D" parent="Boundaries"]
-position = Vector2(1225, 400)
+position = Vector2(745, 640)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/RightWall"]
 shape = SubResource("RectangleShape2D_boundary_v")

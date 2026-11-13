@@ -273,8 +273,3 @@ text = "↺ RETRY"
 custom_minimum_size = Vector2(110, 45)
 layout_mode = 2
 text = "⌂ LEVELS"
-
-[node name="ExitBtn" type="Button" parent="CanvasLayer/ResultScreen/Box/BtnRow"]
-custom_minimum_size = Vector2(110, 45)
-layout_mode = 2
-text = "🏠 HUB"

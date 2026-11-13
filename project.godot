@@ -15,7 +15,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="Meem Games"
-config/description="Multi-game collection: Ragdoll Sandbox, Draw Bridge, and Swing Dash"
+config/description="Multi-game collection: 13 Physics and Meme Games for Godot 4"
 run/main_scene="res://main_menu.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
 
@@ -25,9 +25,15 @@ SoundManager="*res://common/sound_manager.gd"
 
 [display]
 
-window/size/viewport_width=1200
-window/size/viewport_height=800
+window/size/viewport_width=720
+window/size/viewport_height=1280
 window/stretch/mode="canvas_items"
+window/handheld/orientation="portrait"
+
+[gui]
+
+theme/custom="res://default_theme.tres"
+theme/custom_font="res://assets/fonts/Fredoka.ttf"
 
 [input_devices]
 

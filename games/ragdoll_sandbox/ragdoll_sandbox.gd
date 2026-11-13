@@ -17,7 +17,6 @@ func _ready() -> void:
 	$CanvasLayer/PauseMenu/VBox/ResumeBtn.pressed.connect(_resume_game)
 	$CanvasLayer/PauseMenu/VBox/ResetBtn.pressed.connect(reset_room)
 	$CanvasLayer/PauseMenu/VBox/ChangeCharBtn.pressed.connect(_open_character_menu)
-	$CanvasLayer/PauseMenu/VBox/HomeBtn.pressed.connect(_return_to_main_menu)
 	$CanvasLayer/CharacterMenu/VBox/BackBtn.pressed.connect(_on_character_menu_back)
 	
 	# Connect character picker buttons
@@ -27,6 +26,8 @@ func _ready() -> void:
 		if btn is Button:
 			if i == 0:
 				btn.pressed.connect(_on_character_selected.bind("face1"))
+			elif i == 1:
+				btn.pressed.connect(_on_character_selected.bind("face2"))
 			else:
 				btn.pressed.connect(_on_character_selected.bind(btn.text))
 			
@@ -80,11 +81,7 @@ func reset_room() -> void:
 		current_ragdoll = null
 		
 	current_ragdoll = RAGDOLL_SCENE.instantiate()
-	current_ragdoll.position = Vector2(600, 200)
+	current_ragdoll.position = Vector2(360, 450)
 	add_child(current_ragdoll)
 	current_ragdoll.set_character(current_emoji)
 	_resume_game()
-
-func _return_to_main_menu() -> void:
-	get_tree().paused = false
-	get_tree().change_scene_to_file("res://main_menu.tscn")

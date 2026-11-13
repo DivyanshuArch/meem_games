@@ -6,7 +6,7 @@
 script = ExtResource("1_main")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(600, 400)
+position = Vector2(360, 640)
 
 [node name="WorldContainer" type="Node2D" parent="."]
 
@@ -216,11 +216,6 @@ custom_minimum_size = Vector2(100, 45)
 layout_mode = 2
 text = "LEVELS"
 
-[node name="ExitBtn" type="Button" parent="CanvasLayer/WinScreen/Box/BtnRow"]
-custom_minimum_size = Vector2(100, 45)
-layout_mode = 2
-text = "🏠 HUB"
-
 [node name="LoseScreen" type="ColorRect" parent="CanvasLayer"]
 visible = false
 anchors_preset = 15
@@ -274,8 +269,3 @@ text = "RESTART"
 custom_minimum_size = Vector2(110, 45)
 layout_mode = 2
 text = "LEVELS"
-
-[node name="ExitBtn" type="Button" parent="CanvasLayer/LoseScreen/Box/BtnRow"]
-custom_minimum_size = Vector2(110, 45)
-layout_mode = 2
-text = "🏠 HUB"

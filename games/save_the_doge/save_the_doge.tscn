@@ -1,0 +1,170 @@
+[gd_scene load_steps=3 format=3 uid="uid://s4v3th3d0g3001"]
+
+[ext_resource type="Script" path="res://games/save_the_doge/save_the_doge.gd" id="1_main"]
+[ext_resource type="Script" path="res://games/save_the_doge/ink_drawer.gd" id="2_drawer"]
+
+[node name="SaveTheDoge" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="InkDrawer" type="Node2D" parent="."]
+script = ExtResource("2_drawer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LevelBadge" type="Label" parent="CanvasLayer/HUD"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 25.0
+offset_right = 300.0
+offset_bottom = 65.0
+theme_override_font_sizes/font_size = 22
+text = "LEVEL 1: First Swarm"
+
+[node name="TimerBadge" type="Label" parent="CanvasLayer/HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -100.0
+offset_top = 30.0
+offset_right = 100.0
+offset_bottom = 80.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+theme_override_font_sizes/font_size = 32
+text = "⏱️ 5.0s"
+horizontal_alignment = 1
+
+[node name="Instruction" type="Label" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 90.0
+offset_right = 250.0
+offset_bottom = 140.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0.95)
+theme_override_font_sizes/font_size = 28
+text = "DRAW A SHIELD FOR DOGE!"
+horizontal_alignment = 1
+
+[node name="RestartBtn" type="Button" parent="CanvasLayer/HUD"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -65.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 65.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "↻"
+
+[node name="InkContainer" type="Control" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -120.0
+offset_top = -60.0
+offset_right = 120.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="BarBg" type="ColorRect" parent="CanvasLayer/HUD/InkContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.1, 0.1, 0.1, 0.7)
+
+[node name="InkBar" type="ColorRect" parent="CanvasLayer/HUD/InkContainer/BarBg"]
+layout_mode = 0
+offset_right = 240.0
+offset_bottom = 40.0
+color = Color(0.05, 0.65, 0.95, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/HUD/InkContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -14.0
+offset_right = 40.0
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 16
+text = "INK"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ResultScreen" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.6)
+
+[node name="Box" type="VBoxContainer" parent="CanvasLayer/ResultScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -120.0
+offset_right = 200.0
+offset_bottom = 120.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Title" type="Label" parent="CanvasLayer/ResultScreen/Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "SAFE AND SOUND! 🏆"
+horizontal_alignment = 1
+
+[node name="NextBtn" type="Button" parent="CanvasLayer/ResultScreen/Box"]
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "NEXT LEVEL"
+
+[node name="BtnRow" type="HBoxContainer" parent="CanvasLayer/ResultScreen/Box"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="RetryBtn" type="Button" parent="CanvasLayer/ResultScreen/Box/BtnRow"]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "RETRY"

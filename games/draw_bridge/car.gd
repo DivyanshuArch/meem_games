@@ -39,7 +39,7 @@ func _physics_process(delta: float) -> void:
 	wheel_b.angular_velocity = motor_speed
 
 	# Check fall off screen
-	if chassis.global_position.y > 880.0:
+	if chassis.global_position.y > 1350.0:
 		_trigger_crash()
 		return
 

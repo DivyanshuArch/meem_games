@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://r4gd0ll5andbox"]
+[gd_scene load_steps=7 format=3 uid="uid://r4gd0ll5andbox"]
 
 [ext_resource type="Script" path="res://games/ragdoll_sandbox/ragdoll_sandbox.gd" id="1_main"]
 [ext_resource type="Script" path="res://games/ragdoll_sandbox/room_background.gd" id="2_room"]
 [ext_resource type="PackedScene" uid="uid://furn1tur3sbx" path="res://games/ragdoll_sandbox/furniture.tscn" id="3_furn"]
 [ext_resource type="Texture2D" uid="uid://cmtecfutxl365" path="res://assets/face1.png" id="4_face"]
+[ext_resource type="Texture2D" uid="uid://8j2qrgxo1eui" path="res://assets/face2.png" id="5_face2"]
 
 [node name="RagdollSandbox" type="Node2D"]
 script = ExtResource("1_main")
@@ -104,8 +105,8 @@ expand_icon = true
 [node name="Btn2" type="Button" parent="CanvasLayer/CharacterMenu/VBox/Grid"]
 custom_minimum_size = Vector2(80, 80)
 layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "👨‍🦳"
+icon = ExtResource("5_face2")
+expand_icon = true
 
 [node name="Btn3" type="Button" parent="CanvasLayer/CharacterMenu/VBox/Grid"]
 custom_minimum_size = Vector2(80, 80)
@@ -182,8 +183,3 @@ text = "↺ RESET ROOM"
 custom_minimum_size = Vector2(0, 45)
 layout_mode = 2
 text = "👤 CHANGE CHARACTER"
-
-[node name="HomeBtn" type="Button" parent="CanvasLayer/PauseMenu/VBox"]
-custom_minimum_size = Vector2(0, 45)
-layout_mode = 2
-text = "🏠 MAIN MENU"

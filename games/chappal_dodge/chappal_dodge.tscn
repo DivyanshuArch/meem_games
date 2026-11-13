@@ -1,0 +1,181 @@
+[gd_scene load_steps=2 format=3 uid="uid://ch4pp4ld0dg301"]
+
+[ext_resource type="Script" path="res://games/chappal_dodge/chappal_dodge.gd" id="1_main"]
+
+[node name="ChappalDodge" type="Node2D"]
+script = ExtResource("1_main")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HUD" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TimeBadge" type="Label" parent="CanvasLayer/HUD"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 25.0
+offset_right = 200.0
+offset_bottom = 65.0
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+theme_override_font_sizes/font_size = 24
+text = "⏱️ 0.0s"
+
+[node name="ScoreBadge" type="Label" parent="CanvasLayer/HUD"]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 65.0
+offset_right = 200.0
+offset_bottom = 105.0
+theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "⭐ 0"
+
+[node name="RestartBtn" type="Button" parent="CanvasLayer/HUD"]
+custom_minimum_size = Vector2(45, 45)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -65.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = 65.0
+grow_horizontal = 0
+theme_override_font_sizes/font_size = 20
+text = "↻"
+
+[node name="TouchControls" type="Control" parent="CanvasLayer/HUD"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -220.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="LeftBtn" type="Button" parent="CanvasLayer/HUD/TouchControls"]
+custom_minimum_size = Vector2(100, 80)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -120.0
+offset_right = 130.0
+offset_bottom = -40.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "◀"
+
+[node name="RightBtn" type="Button" parent="CanvasLayer/HUD/TouchControls"]
+custom_minimum_size = Vector2(100, 80)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = -120.0
+offset_right = 250.0
+offset_bottom = -40.0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 32
+text = "▶"
+
+[node name="JumpBtn" type="Button" parent="CanvasLayer/HUD/TouchControls"]
+custom_minimum_size = Vector2(100, 80)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -230.0
+offset_top = -120.0
+offset_right = -130.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 22
+text = "JUMP
+▲"
+
+[node name="DuckBtn" type="Button" parent="CanvasLayer/HUD/TouchControls"]
+custom_minimum_size = Vector2(100, 80)
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -120.0
+offset_right = -10.0
+offset_bottom = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 22
+text = "DUCK
+▼"
+
+[node name="ResultScreen" type="ColorRect" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="Box" type="VBoxContainer" parent="CanvasLayer/ResultScreen"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -110.0
+offset_right = 200.0
+offset_bottom = 110.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Title" type="Label" parent="CanvasLayer/ResultScreen/Box"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "CAUGHT! 🩴💀"
+horizontal_alignment = 1
+
+[node name="TimeLabel" type="Label" parent="CanvasLayer/ResultScreen/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.2, 1)
+theme_override_font_sizes/font_size = 24
+text = "SURVIVED: 0.0s"
+horizontal_alignment = 1
+
+[node name="ScoreLabel" type="Label" parent="CanvasLayer/ResultScreen/Box"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "SCORE: 0 PTS"
+horizontal_alignment = 1
+
+[node name="BtnRow" type="HBoxContainer" parent="CanvasLayer/ResultScreen/Box"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="RetryBtn" type="Button" parent="CanvasLayer/ResultScreen/Box/BtnRow"]
+custom_minimum_size = Vector2(220, 48)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "RETRY"

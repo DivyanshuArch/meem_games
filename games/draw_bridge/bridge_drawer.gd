@@ -30,7 +30,17 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not can_draw:
 		return
 		
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	# Touch screen events
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			_start_drawing(event.position)
+		else:
+			_end_drawing()
+	elif event is InputEventScreenDrag and is_drawing:
+		_add_point(event.position)
+		
+	# Mouse events
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			_start_drawing(event.position)
 		else:

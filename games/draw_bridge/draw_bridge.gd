@@ -3,6 +3,9 @@ extends Node2D
 const CAR_SCENE = preload("res://games/draw_bridge/car.tscn")
 const FLAG_SCENE = preload("res://games/draw_bridge/flag.tscn")
 
+const SCREEN_W: float = 720.0
+const SCREEN_H: float = 1280.0
+
 enum State { MENU, LEVEL_SELECT, DRAWING, DRIVING, ENDED }
 
 var current_state: State = State.MENU
@@ -35,7 +38,6 @@ func _ready() -> void:
 	$CanvasLayer/ResultScreen/Box/NextBtn.pressed.connect(_on_next_level_pressed)
 	$CanvasLayer/ResultScreen/Box/BtnRow/RetryBtn.pressed.connect(_restart_current_level)
 	$CanvasLayer/ResultScreen/Box/BtnRow/HomeBtn.pressed.connect(_open_main_menu)
-	$CanvasLayer/ResultScreen/Box/BtnRow/ExitBtn.pressed.connect(_exit_to_hub)
 	
 	_populate_level_select()
 	_open_main_menu()
@@ -99,13 +101,13 @@ func load_level(level_idx: int) -> void:
 	
 	# Instantiate Flag
 	active_flag = FLAG_SCENE.instantiate()
-	active_flag.position = Vector2(1200.0 * cfg["flag_pos"].x, 800.0 * cfg["flag_pos"].y)
+	active_flag.position = Vector2(SCREEN_W * cfg["flag_pos"].x, SCREEN_H * cfg["flag_pos"].y)
 	active_flag.goal_reached.connect(_on_level_won)
 	add_child(active_flag)
 	
 	# Instantiate Car
 	active_car = CAR_SCENE.instantiate()
-	active_car.position = Vector2(1200.0 * cfg["car_pos"].x, 800.0 * cfg["car_pos"].y - 20.0)
+	active_car.position = Vector2(SCREEN_W * cfg["car_pos"].x, SCREEN_H * cfg["car_pos"].y - 20.0)
 	active_car.crashed.connect(_on_level_lost)
 	add_child(active_car)
 	
@@ -127,10 +129,10 @@ func _clear_level() -> void:
 func _build_terrain(cfg: Dictionary) -> void:
 	var terrain_data: Array = cfg["terrain"]
 	for item in terrain_data:
-		var x: float = item["x"] * 1200.0
-		var w: float = item["w"] * 1200.0
-		var y: float = item["y"] * 800.0
-		var h: float = 800.0 - y
+		var x: float = item["x"] * SCREEN_W
+		var w: float = item["w"] * SCREEN_W
+		var y: float = item["y"] * SCREEN_H
+		var h: float = SCREEN_H - y
 		
 		var body = StaticBody2D.new()
 		var col = CollisionShape2D.new()
@@ -211,34 +213,31 @@ func _on_next_level_pressed() -> void:
 func _restart_current_level() -> void:
 	load_level(current_level_idx)
 
-func _exit_to_hub() -> void:
-	get_tree().change_scene_to_file("res://main_menu.tscn")
-
 func _draw() -> void:
 	# Sky background
-	draw_rect(Rect2(0, 0, 1200, 800), Color("#6BB5FF"))
+	draw_rect(Rect2(0, 0, SCREEN_W, SCREEN_H), Color("#6BB5FF"))
 
 	# Background hills
-	draw_circle(Vector2(240, 720), 400.0, Color("#B4E396"))
-	draw_circle(Vector2(960, 750), 450.0, Color("#9BD37A"))
+	draw_circle(Vector2(SCREEN_W * 0.2, SCREEN_H * 0.9), 350.0, Color("#B4E396"))
+	draw_circle(Vector2(SCREEN_W * 0.8, SCREEN_H * 0.95), 400.0, Color("#9BD37A"))
 
 	# Sun
-	draw_circle(Vector2(900, 90), 38.0, Color("#FFF5B8"))
+	draw_circle(Vector2(SCREEN_W * 0.8, 110.0), 38.0, Color("#FFF5B8"))
 
 	# Stylized flat-bottom fluffy clouds
-	_draw_cloud(Vector2(240, 200), 1.2)
-	_draw_cloud(Vector2(720, 260), 1.5)
-	_draw_cloud(Vector2(550, 380), 0.9)
+	_draw_cloud(Vector2(SCREEN_W * 0.25, 200), 1.2)
+	_draw_cloud(Vector2(SCREEN_W * 0.75, 260), 1.4)
+	_draw_cloud(Vector2(SCREEN_W * 0.5, 360), 1.0)
 
 	# Draw Terrain Platforms for current level
 	if current_state != State.MENU and current_state != State.LEVEL_SELECT:
 		var cfg = DrawBridgeLevels.LEVELS[current_level_idx]
 		var terrain_data: Array = cfg["terrain"]
 		for item in terrain_data:
-			var x: float = item["x"] * 1200.0
-			var w: float = item["w"] * 1200.0
-			var y: float = item["y"] * 800.0
-			var h: float = 800.0 - y
+			var x: float = item["x"] * SCREEN_W
+			var w: float = item["w"] * SCREEN_W
+			var y: float = item["y"] * SCREEN_H
+			var h: float = SCREEN_H - y
 
 			# Dirt body
 			draw_rect(Rect2(x, y + 15, w, h - 15), Color("#9C663C"))

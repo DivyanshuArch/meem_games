@@ -38,7 +38,15 @@ func _unhandled_input(event: InputEvent) -> void:
 	if has_ended:
 		return
 		
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	# Touch screen events
+	if event is InputEventScreenTouch:
+		if event.pressed:
+			_attach_rope()
+		else:
+			_detach_rope()
+			
+	# Mouse events
+	elif event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
 		if event.pressed:
 			_attach_rope()
 		else:
@@ -148,7 +156,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	# Check Lose Condition (Fell off screen)
-	if global_position.y > 900.0:
+	if global_position.y > 1350.0:
 		has_ended = true
 		_detach_rope()
 		SoundManager.play_random(["vine_boom", "dun_dun_dun", "fart", "are_baap_re"])

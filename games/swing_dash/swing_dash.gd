@@ -3,6 +3,9 @@ extends Node2D
 const PLAYER_SCENE = preload("res://games/swing_dash/player.tscn")
 const ANCHOR_SCENE = preload("res://games/swing_dash/anchor.tscn")
 
+const SCREEN_W: float = 720.0
+const SCREEN_H: float = 1280.0
+
 enum State { MENU, LEVEL_SELECT, PLAYING, WIN, LOSE }
 
 var current_state: State = State.MENU
@@ -33,11 +36,9 @@ func _ready() -> void:
 	$CanvasLayer/WinScreen/Box/NextBtn.pressed.connect(_on_next_level)
 	$CanvasLayer/WinScreen/Box/BtnRow/ReplayBtn.pressed.connect(_restart_current_level)
 	$CanvasLayer/WinScreen/Box/BtnRow/MenuBtn.pressed.connect(_open_main_menu)
-	$CanvasLayer/WinScreen/Box/BtnRow/ExitBtn.pressed.connect(_exit_to_hub)
 	
 	$CanvasLayer/LoseScreen/Box/BtnRow/RestartBtn.pressed.connect(_restart_current_level)
 	$CanvasLayer/LoseScreen/Box/BtnRow/MenuBtn.pressed.connect(_open_main_menu)
-	$CanvasLayer/LoseScreen/Box/BtnRow/ExitBtn.pressed.connect(_exit_to_hub)
 	
 	_populate_level_select()
 	_open_main_menu()
@@ -97,11 +98,11 @@ func load_level(level_idx: int) -> void:
 		
 	_clear_level()
 	confetti_particles.clear()
-	camera.position = Vector2(600, 400)
+	camera.position = Vector2(SCREEN_W * 0.5, SCREEN_H * 0.5)
 	
 	var lvl_data = SwingDashLevels.LEVELS[current_level_idx]
-	var base_w: float = 1200.0
-	var base_h: float = 800.0
+	var base_w: float = SCREEN_W
+	var base_h: float = SCREEN_H
 	var start_y: float = lvl_data["start"].get("y", 0.75) * base_h
 	var end_y: float = lvl_data["end"].get("y", 0.75) * base_h
 	
@@ -156,8 +157,9 @@ func _create_platform(x: float, y: float, w: float, h: float, is_end: bool) -> v
 func _process(delta: float) -> void:
 	if current_state == State.PLAYING and active_player:
 		# Smooth camera horizontal follow
-		var target_x = max(600.0, active_player.position.x + 200.0)
+		var target_x = max(SCREEN_W * 0.5, active_player.position.x + 120.0)
 		camera.position.x = lerp(camera.position.x, target_x, 8.0 * delta)
+		camera.position.y = SCREEN_H * 0.5
 		
 	# Confetti physics
 	for i in range(confetti_particles.size() - 1, -1, -1):
@@ -207,27 +209,24 @@ func _on_next_level() -> void:
 func _restart_current_level() -> void:
 	load_level(current_level_idx)
 
-func _exit_to_hub() -> void:
-	get_tree().change_scene_to_file("res://main_menu.tscn")
-
 func _draw() -> void:
-	var cam_x = camera.position.x - 600.0
+	var cam_x = camera.position.x - (SCREEN_W * 0.5)
 
 	# 1. Sky
-	draw_rect(Rect2(cam_x, 0, 1200, 800), Color("#79D1ED"))
+	draw_rect(Rect2(cam_x, 0, SCREEN_W, SCREEN_H), Color("#79D1ED"))
 
 	# 2. Sun (parallax)
-	draw_circle(Vector2(cam_x + 900.0 - cam_x * 0.05, 120.0), 45.0, Color("#FFF5B8"))
+	draw_circle(Vector2(cam_x + 550.0 - cam_x * 0.05, 140.0), 45.0, Color("#FFF5B8"))
 
 	# 3. Clouds (parallax)
-	_draw_cloud(Vector2(cam_x + 200.0 - cam_x * 0.1, 150.0), 2.0)
-	_draw_cloud(Vector2(cam_x + 750.0 - cam_x * 0.15, 220.0), 1.5)
-	_draw_cloud(Vector2(cam_x + 1300.0 - cam_x * 0.1, 110.0), 1.8)
+	_draw_cloud(Vector2(cam_x + 150.0 - cam_x * 0.1, 200.0), 1.8)
+	_draw_cloud(Vector2(cam_x + 500.0 - cam_x * 0.15, 280.0), 1.5)
+	_draw_cloud(Vector2(cam_x + 900.0 - cam_x * 0.1, 160.0), 1.6)
 
 	# 4. Hills (parallax)
-	draw_circle(Vector2(360.0 + cam_x * 0.7, 900.0), 400.0, Color("#A3E489"))
-	draw_circle(Vector2(1050.0 + cam_x * 0.6, 850.0), 500.0, Color("#91D975"))
-	draw_circle(Vector2(1750.0 + cam_x * 0.5, 950.0), 450.0, Color("#7AC95B"))
+	draw_circle(Vector2(240.0 + cam_x * 0.7, 1350.0), 450.0, Color("#A3E489"))
+	draw_circle(Vector2(700.0 + cam_x * 0.6, 1300.0), 550.0, Color("#91D975"))
+	draw_circle(Vector2(1150.0 + cam_x * 0.5, 1400.0), 500.0, Color("#7AC95B"))
 
 	# 5. Platforms Visuals
 	for p_body in platform_bodies:
